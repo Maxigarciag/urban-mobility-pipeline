@@ -15,13 +15,29 @@ user_types_sql = st.session_state['user_types_sql']
 date_filter_sql = st.session_state['date_filter_sql']
 top_n = st.session_state['top_n']
 
+# Estilo de mapa público libre de token Mapbox
+CARTO_DARK_STYLE = "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+
 @st.cache_resource
 def get_db_connection():
-    db_path = Path(__file__).parent.parent.parent / "data" / "bikes.duckdb"
-    if not db_path.exists():
-        st.error(f"Error Crítico: No se encontró la base de datos en `{db_path.absolute()}`.")
+    possible_paths = [
+        Path("data/bikes.duckdb"),
+        Path("urban-mobility-pipeline/data/bikes.duckdb"),
+        Path(__file__).parent.parent / "data" / "bikes.duckdb",
+        Path(__file__).parent.parent.parent / "data" / "bikes.duckdb"
+    ]
+    
+    db_path = None
+    for path in possible_paths:
+        if path.exists():
+            db_path = path
+            break
+
+    if not db_path:
+        st.error("Error Crítico: No se encontró la base de datos.")
         st.info("💡 Asegúrate de subir el archivo `.duckdb` de muestra al repositorio.")
         st.stop()
+        
     try:
         return duckdb.connect(str(db_path), read_only=True)
     except Exception as e:
@@ -84,7 +100,7 @@ with tab_scatter:
         initial_view_state=pdk.ViewState(
             latitude=40.7300, longitude=-73.9800, zoom=12.5, pitch=40
         ),
-        map_style="mapbox://styles/mapbox/dark-v10",
+        map_style=CARTO_DARK_STYLE,
         tooltip={
             "html": "<b>{start_station_name}</b><br>Viajes: {total_trips}",
             "style": {
@@ -134,7 +150,7 @@ with tab_hex:
                 zoom=12.5,
                 pitch=0
             ),
-            map_style="mapbox://styles/mapbox/dark-v10",
+            map_style=CARTO_DARK_STYLE,
         ))
     else:
         st.info("Sin datos para el mapa de calor.")
