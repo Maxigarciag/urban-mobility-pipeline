@@ -18,7 +18,15 @@ top_n = st.session_state['top_n']
 @st.cache_resource
 def get_db_connection():
     db_path = Path(__file__).parent.parent.parent / "data" / "bikes.duckdb"
-    return duckdb.connect(str(db_path), read_only=True)
+    if not db_path.exists():
+        st.error(f"Error Crítico: No se encontró la base de datos en `{db_path.absolute()}`.")
+        st.info("💡 Asegúrate de subir el archivo `.duckdb` de muestra al repositorio.")
+        st.stop()
+    try:
+        return duckdb.connect(str(db_path), read_only=True)
+    except Exception as e:
+        st.error(f"Error de conexión a DuckDB: {e}")
+        st.stop()
 
 con = get_db_connection()
 

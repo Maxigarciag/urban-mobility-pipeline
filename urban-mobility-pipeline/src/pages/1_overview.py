@@ -16,10 +16,29 @@ from queries import (
 # ──────────────────────────────────────────────
 @st.cache_resource
 def get_db_connection():
-    # Use parent.parent since we are now in src/pages/
-    db_path = Path(__file__).parent.parent.parent / "data" / "bikes.duckdb"
+    # 1. Definir posibles ubicaciones de la base de datos (por si está anidada o en la raíz)
+    possible_paths = [
+        Path("data/bikes.duckdb"),
+        Path("urban-mobility-pipeline/data/bikes.duckdb"),
+        Path(__file__).parent.parent / "data" / "bikes.duckdb",
+        Path(__file__).parent.parent.parent / "data" / "bikes.duckdb"
+    ]
+    
+    db_path = None
+    for path in possible_paths:
+        if path.exists():
+            db_path = path
+            break
+            
+    # 2. Si no encuentra la base de datos en ninguna ruta, mostrar un mensaje limpio
+    if not db_path:
+        st.error("⚠️ No se encontró el archivo de base de datos `bikes.duckdb` en el servidor.")
+        st.info("Asegurate de haber forzado la subida del archivo a GitHub con: `git add -f data/bikes.duckdb`")
+        st.stop()
+        
     return duckdb.connect(str(db_path), read_only=True)
 
+# ── INSTANCIAR CONEXIÓN ──
 con = get_db_connection()
 
 # ──────────────────────────────────────────────
