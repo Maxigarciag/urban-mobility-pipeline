@@ -1,0 +1,6 @@
+duckdb>=0.9.0
+pandas>=2.0.0
+streamlit>=1.30.0
+plotly>=5.18.0
+pydeck>=0.8.0
+polars>=0.20.0

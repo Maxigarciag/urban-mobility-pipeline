@@ -1,0 +1,29 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Archivos de datos e infraestructura pesada
+#*.duckdb
+*.csv
+*.zip
+*.parquet
+data/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Streamlit
+.streamlit/
+
+# Sistemas operativos
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "duckdb": "^1.4.4",
+    "pandas": "^0.0.3"
+  }
+}
