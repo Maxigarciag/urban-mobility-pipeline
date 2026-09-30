@@ -1,5 +1,5 @@
 # NYC Citi Bike Analytics Pipeline 🚲
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://TU_LINK_DE_STREAMLIT.streamlit.app)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://urban-mobility-pipeline-xvnnkju9uzyir2b9rxpbjx.streamlit.app/)
 
 Un dashboard interactivo y pipeline de datos (ETL) end-to-end diseñado para analizar la movilidad urbana en la red de bicicletas públicas de Nueva York (Citi Bike). Construido con un enfoque profesional de arquitectura moderna, este proyecto demuestra capacidades avanzadas en ingeniería de datos, optimización de consultas y visualización de alto impacto (estilo SaaS).
 
@@ -66,7 +66,7 @@ urban-mobility-pipeline/
 
 **1. Clonar el repositorio**
 ```bash
-git clone https://github.com/tu-usuario/nyc-bikes.git
+git clone https://github.com/Maxigarciag/urban-mobility-pipeline.git
 cd nyc-bikes
 ```
 
